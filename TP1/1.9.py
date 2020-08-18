@@ -59,12 +59,8 @@ def crearCajones(naranjasprocesadas):
     print("cajones de cosecha", cajonesapilados)
     transportarCosecha(nencajon,unCajon)
 
-# def imprimirDatos(njugo,unCajon,cajonesapilados):
-
 def transportarCosecha(naranjasencajones,unCajon):
     pesototalcajones = 0
-    camiones = 0
-    print(unCajon)
     for naranja in range(naranjasencajones):
         pesototalcajones = pesototalcajones+ unCajon[naranja-1]
     print(pesototalcajones)
@@ -73,34 +69,10 @@ def transportarCosecha(naranjasencajones,unCajon):
     elif pesototalcajones < 400000:
         print("el camion no tiene suficiente peso en naranjas para salir")
     else:
-        excedente=pesototalcajones-400000
+        excedente = pesototalcajones-400000
         print("el camion no puede transportar todo el peso,", pesototalcajones,end=" ")
         print(".Quedaran en espera ",excedente," en peso para el proximo camion")
-    #cantidadCamiones(pesototalcajones)
-
-
-def cantidadCamiones(pesototal):
-    camion = 0
-    enespera = 0
-    if pesototal >= 5000:
-        camion += 1
-    elif pesototal <= 3999:
-        enespera += 1  # el peso del camion es insuficiente para salir
-    return camion, enespera
-
-
-def transportarCosecha(camion, enespera):
-    camionesllenos = []
-    camionesllenos.append(camion)
-    camionesenespera = []
-    camionesllenos.append(enespera)
-    if len(camionesllenos) > 0:
-        print("se necesitan transportar", len(camionesllenos), "camiones")
-    if len(camionesenespera) > 0:
-        print("se encuentran en espera", len(camionesenespera), "camiones")
-
 
 naranjasprocesadas = int(input("Ingrese cantidad de naranjas a procesar: "))
 cajones = cantidadNaranjas(naranjasprocesadas)
-#print(cajones)
 crearCajones(cajones)
