@@ -11,31 +11,72 @@ Además, se desea saber cuántos camiones se necesitan para transportar la cosec
 considerando que la ocupación del camión no debe ser inferior al 80%; en
 caso contrario el camión no serán despachado por su alto costo'''
 
-
 # camiones= n??? max 500 .min 400 toneladas
 # cajones 100 naranjas entre 200 y 300 gramos
 # naranjas jugo ->150 a 200 ,301 a 350
 # cantnaranjas
 
+import random
+
+
+def cantidadNaranjas(naranjasprocesadas):
+    cajon = []
+    naranja = random.randint(150, 350)
+    registradas = 0
+    while registradas < naranjasprocesadas:
+        cajon.append(naranja)
+        naranja = random.randint(150, 350)
+        registradas += 1
+    return cajon
+
 
 def crearCajones(naranjasprocesadas):
     unCajon = []
-    cajonesTotales = []
+    CajonJugo = []
+    cajonesapilados = 0
     njugo = 0
-    for naranja in range(naranjasprocesadas + 1):
-        if 200 < naranja < 300:  # naranja>200 and naranja<300
-            unCajon.append(naranja)
-        else:
-            njugo = +1
-    return njugo, unCajon
+    nencajon = 0
 
+    for naranja in range(len(naranjasprocesadas) + 1):  # itera en cantidad de naranjas ingresadas
+        if 200 <= naranjasprocesadas[naranja - 1] <= 300:
+            unCajon.append(naranjasprocesadas[naranja - 1])  # se agrega la naranja al cajon
+            nencajon = nencajon + 1
+        elif naranjasprocesadas[naranja - 1] < 199 or naranjasprocesadas[naranja - 1] >= 301:  #naranjas tipo jugo
+            CajonJugo.append(naranjasprocesadas[naranja - 1])
+            njugo = njugo + 1
 
-def calcularPesoCajones(cajones):
+    for item in range(0, len(unCajon) + 1, 100):
+        cajonesapilados = cajonesapilados + 1
+
+    if nencajon >= 100:
+        proximocajon = 100 - (nencajon - 100)
+        print("naranjas a completar otro cajon", proximocajon)
+
+    print(nencajon, " naranjas de cosecha")
+    # print("cajon cosecha contiene", unCajon) array de naranjas de cosecha
+    print(njugo, " naranjas de jugo")  # naranjas de jugo
+    # print("cajon jugo contiene ", njugo, CajonJugo)
+    print("cajones de cosecha", cajonesapilados)
+    transportarCosecha(nencajon,unCajon)
+
+# def imprimirDatos(njugo,unCajon,cajonesapilados):
+
+def transportarCosecha(naranjasencajones,unCajon):
     pesototalcajones = 0
     camiones = 0
-    for cajon in range(cajones + 1):
-        pesototalcajones += cajon
-    cantidadCamiones(pesototalcajones)
+    print(unCajon)
+    for naranja in range(naranjasencajones):
+        pesototalcajones = pesototalcajones+ unCajon[naranja-1]
+    print(pesototalcajones)
+    if 400000 <= pesototalcajones <= 500000: #500000 es el maximo pero 400000 es el 80%
+        print("el camion saldra. Pesa", pesototalcajones)
+    elif pesototalcajones < 400000:
+        print("el camion no tiene suficiente peso en naranjas para salir")
+    else:
+        excedente=pesototalcajones-400000
+        print("el camion no puede transportar todo el peso,", pesototalcajones,end=" ")
+        print(".Quedaran en espera ",excedente," en peso para el proximo camion")
+    #cantidadCamiones(pesototalcajones)
 
 
 def cantidadCamiones(pesototal):
@@ -49,15 +90,17 @@ def cantidadCamiones(pesototal):
 
 
 def transportarCosecha(camion, enespera):
-
     camionesllenos = []
     camionesllenos.append(camion)
     camionesenespera = []
     camionesllenos.append(enespera)
     if len(camionesllenos) > 0:
-        print("se necesitan transportar", len(camionesllenos),"camiones")
+        print("se necesitan transportar", len(camionesllenos), "camiones")
     if len(camionesenespera) > 0:
         print("se encuentran en espera", len(camionesenespera), "camiones")
 
 
-naranjasprocesadas = 200
+naranjasprocesadas = int(input("Ingrese cantidad de naranjas a procesar: "))
+cajones = cantidadNaranjas(naranjasprocesadas)
+#print(cajones)
+crearCajones(cajones)
