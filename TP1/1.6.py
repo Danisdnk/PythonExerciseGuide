@@ -6,8 +6,8 @@
 
 def concatenar(x, y):
     # devolver=print(x,y,end='')
-    print(y, end='')
-    print(x, end='')
+    algo= print(y,x)
+    algo
 
 
 b = int(input("Ingrese un numero entero:"))
