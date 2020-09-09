@@ -8,7 +8,7 @@ def centrar(cadena):
     return centrada
 
 
-cadena = input("Ingrese la cadena que quiere cortar")
+cadena = input("Ingrese la cadena que quiere centrar")
 centrado = centrar(cadena)
 print(centrado)
 # Yo nunca me pierdo...son los demás los que no me encuentran.
